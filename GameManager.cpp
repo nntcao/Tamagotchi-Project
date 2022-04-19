@@ -3,7 +3,7 @@
 using namespace std;
 
 GameManager::GameManager() {
-
+    currentSlot = 0;
 }
 
 void GameManager::start() {
@@ -36,7 +36,7 @@ void GameManager::drawMenu(vector<string> text) {
 
 void GameManager::drawMainMenu() {
     vector<string> text;
-    text.push_back("Welcome to Tamagotchi! Please select an numerical option to play:");
+    text.push_back("Welcome to Tamagotchi! Please select an option:");
     text.push_back("1. Load Pet");
     text.push_back("2. Create New Pet");
     text.push_back("3. Exit");
