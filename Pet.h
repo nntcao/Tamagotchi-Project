@@ -2,6 +2,7 @@
 #define PET
 
 #include <string>
+using namespace std;
 
 class Pet {
 private:
@@ -13,6 +14,7 @@ private:
     string trait;
     string type;
     int hoursAged;
+    void printWarning(string stat, int amount);
 
 protected:
     void interaction(int deltaHunger, int deltaSleep, int deltaBoredom, int deltaSadness);
@@ -26,7 +28,7 @@ public:
     virtual void sleep();
     virtual void nextHour();
     void printWarnings();
-}
+};
 
 
 

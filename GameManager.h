@@ -6,11 +6,11 @@
 #include "Nyorotchi.h"
 #include <string>
 #include <vector>
+using namespace std;
 
 class GameManager {
 private:
-    int saveSlot;
-    Pet currentPet;
+    int currentSlot;
     vector<Pet> loadedPets;
 
 public:
@@ -27,7 +27,7 @@ public:
     void drawNewPetMenu();
     void drawInteractPetMenu();
     void drawSaveMenu();
-}
+};
 
 
 

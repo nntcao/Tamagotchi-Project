@@ -3,6 +3,7 @@
 
 #include "Pet.h"
 #include <string>
+using namespace std;
 
 class Maskutchi : public Pet {
     public:

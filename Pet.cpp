@@ -4,6 +4,7 @@ using namespace std;
 #include <random>
 #include <string>
 #include <algorithm>
+#include <iostream>
 
 Pet::Pet(string _name, string _type) {
     hunger = rand() % 51;
@@ -46,13 +47,13 @@ void Pet::nextHour() {
     interaction(2, 2, 2, 2);
 }
 
-void Pet::printWarnings() {
-    void printWarning(string stat, int amount) {
-        if (amount > 40) {
-            cout << "Warning! " + name + " is " stat " with " amount + "/100" << endl;
-        }
+void Pet::printWarning(string stat, int amount) {
+    if (amount > 40) {
+        cout << "Warning! " + name + " is " + stat + " with " + to_string(amount) + "/100" << endl;
     }
+}
 
+void Pet::printWarnings() {
     printWarning("hungry", hunger);
     printWarning("sad", sadness);
     printWarning("bored", boredom);
