@@ -21,6 +21,7 @@ private:
     void interactPet();
     void save();
 
+
     void drawMenu(vector<string> lines);
     void drawMainMenu();
     void drawLoadMenu();
@@ -35,6 +36,7 @@ public:
     GameManager();
     ~GameManager();
     void start();
+    const static void pause();
 
 };
 

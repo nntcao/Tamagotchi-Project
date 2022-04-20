@@ -1,3 +1,4 @@
+
 #include "GameManager.h"
 #include "Tarakotchi.h"
 #include "Maskutchi.h"
@@ -18,6 +19,13 @@ GameManager::~GameManager() {
         delete p;
     }
     loadedPets.clear();
+}
+
+const void GameManager::pause() {
+	std::cout << "Press ENTER to continue..."; 
+	std::cin.clear();
+	std::cin.sync();
+	std::cin.get();
 }
 
 int GameManager::getIntegerInput(int min, int max) {
@@ -51,7 +59,7 @@ void GameManager::start() {
                 currentSlot = -1;
                 exit = true;
                 cout << endl;
-                system("PAUSE");
+                GameManager::pause();
                 break;
             case 1:
                 newPet();
@@ -139,7 +147,7 @@ void GameManager::load() {
             cout << "Tamagotchi loaded: " << endl;
             cout << (*loadedPets.at(currentSlot)).getSummary() << endl;
             cout << endl;
-            system("PAUSE");
+            GameManager::pause();
             break;
         }
         else if (option != 0) {
@@ -168,7 +176,7 @@ void GameManager::newPet() {
                 cout << (*loadedPets.at(currentSlot)).getSummary() << endl;
                 cout << endl;
 
-                system("PAUSE");
+                GameManager::pause();
                 option = 0;
                 break;
             case 2:
@@ -181,7 +189,7 @@ void GameManager::newPet() {
                 cout << (*loadedPets.at(currentSlot)).getSummary() << endl;
                 cout << endl;
 
-                system("PAUSE");
+                GameManager::pause();
                 option = 0;
                 break;
             case 3:
@@ -194,7 +202,7 @@ void GameManager::newPet() {
                 cout << (*loadedPets.at(currentSlot)).getSummary() << endl;
                 cout << endl;
 
-                system("PAUSE");
+                GameManager::pause();
                 option = 0;
                 break;
             default:
@@ -216,17 +224,17 @@ void GameManager::interactPet() {
             case 1:
                 (*loadedPets.at(currentSlot)).sleep();
                 cout << endl;
-                system("PAUSE");
+                GameManager::pause();
                 break;
             case 2:
                 (*loadedPets.at(currentSlot)).play();
                 cout << endl;
-                system("PAUSE");
+                GameManager::pause();
                 break;
             case 3:
                 (*loadedPets.at(currentSlot)).feed();
                 cout << endl;
-                system("PAUSE");
+                GameManager::pause();
                 break;
             case 4:
                 save();
@@ -252,7 +260,7 @@ void GameManager::save() {
     cout << "Save completed." << endl;
     cout << endl;
 
-    system("PAUSE");
+    GameManager::pause();
 }
 
 void GameManager::drawMenu(vector<string> text) {

@@ -1,6 +1,7 @@
 using namespace std;
 
 #include "Pet.h"
+#include "GameManager.h"
 #include <random>
 #include <string>
 #include <algorithm>
@@ -472,7 +473,7 @@ void Pet::printWarnings() {
     printWarning("bored", boredom);
     printWarning("sleepy", sleepiness);
 	if (hunger > 40 || sadness > 40 || boredom > 40 || sleepiness > 40) {
-		system("PAUSE");
+		GameManager::pause();
 	}
 }
 

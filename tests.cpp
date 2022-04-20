@@ -2,6 +2,7 @@
 #include "Maskutchi.h"
 #include "Nyorotchi.h"
 #include "Tarakotchi.h"
+#include "GameManager.h"
 #include <iostream>
 using namespace std;
 
@@ -124,7 +125,7 @@ int main() {
         cout << numErrors << " errors found." << endl;
     }
 
-    system("PAUSE");
+    GameManager::pause();
 
     return 0;
 }
