@@ -440,6 +440,7 @@ void Pet::changeStat(int deltaHunger, int deltaSleep, int deltaBoredom, int delt
 void Pet::interaction(int deltaHunger, int deltaSleep, int deltaBoredom, int deltaSadness) {
     changeStat(deltaHunger, deltaSleep, deltaBoredom, deltaSadness);
     nextHour();
+	printWarnings();
 }
 
 void Pet::feed() {
@@ -470,6 +471,9 @@ void Pet::printWarnings() {
     printWarning("sad", sadness);
     printWarning("bored", boredom);
     printWarning("sleepy", sleepiness);
+	if (hunger > 40 || sadness > 40 || boredom > 40 || sleepiness > 40) {
+		system("PAUSE");
+	}
 }
 
 void Pet::load(string _name, int _hoursAged, string _trait, int _hunger, int _sleepiness, int _boredom, int _sadness, string _type) {
