@@ -13,6 +13,13 @@ GameManager::GameManager() {
     currentSlot = -1;
 }
 
+GameManager::~GameManager() {
+    for (Pet* p : loadedPets) {
+        delete p;
+    }
+    loadedPets.clear();
+}
+
 int GameManager::getIntegerInput(int min, int max) {
     int input;
     cin >> input;
@@ -77,7 +84,7 @@ void GameManager::loadPets() {
     }
 }
 
-Pet GameManager::parsePet(string text) {
+Pet* GameManager::parsePet(string text) {
     stringstream textStream(text);
 
     string name;
@@ -99,23 +106,23 @@ Pet GameManager::parsePet(string text) {
     textStream >> type;
 
     if (type == "Maskutchi") {
-        Maskutchi newPet;
-        newPet.load(name, hoursAged, trait, hunger, sleepiness, boredom, sadness, type);
-        return newPet;
+        Maskutchi* pet = new Maskutchi();
+        (*pet).load(name, hoursAged, trait, hunger, sleepiness, boredom, sadness, type);
+        return pet;
     }
     else if (type == "Nyorotchi") {
-        Nyorotchi newPet;
-        newPet.load(name, hoursAged, trait, hunger, sleepiness, boredom, sadness, type);
-        return newPet;
+        Nyorotchi* pet = new Nyorotchi();
+        (*pet).load(name, hoursAged, trait, hunger, sleepiness, boredom, sadness, type);
+        return pet;
     }
     else if (type == "Tarakotchi") {
-        Tarakotchi newPet;
-        newPet.load(name, hoursAged, trait, hunger, sleepiness, boredom, sadness, type);
-        return newPet;
+        Tarakotchi* pet = new Tarakotchi();
+        (*pet).load(name, hoursAged, trait, hunger, sleepiness, boredom, sadness, type);
+        return pet;
     } else {
-        Pet newPet("Error", "Error");
-        newPet.load(name, hoursAged, trait, hunger, sleepiness, boredom, sadness, type);
-        return newPet;
+        Pet* pet = new Pet("Error", "Error");
+        (*pet).load(name, hoursAged, trait, hunger, sleepiness, boredom, sadness, type);
+        return pet;
     }
 
 }
@@ -128,6 +135,11 @@ void GameManager::load() {
         option = getIntegerInput(0, loadedPets.size());
         if (option > 0 && option <= loadedPets.size()) {
             currentSlot = option - 1;
+            cout << endl;
+            cout << "Tamagotchi loaded: " << endl;
+            cout << (*loadedPets.at(currentSlot)).getSummary() << endl;
+            cout << endl;
+            system("PAUSE");
             break;
         }
         else if (option != 0) {
@@ -149,34 +161,40 @@ void GameManager::newPet() {
             case 1:
                 cout << endl << "Please enter a name: " << endl;
                 name = getStringInput();
-                loadedPets.push_back(Tarakotchi(name));
+                loadedPets.push_back(new Tarakotchi(name));
                 currentSlot = loadedPets.size() - 1;
 
                 cout << endl << "New Tamagotchi created: " << endl;
-                cout << loadedPets.at(currentSlot).getSummary() << endl;
+                cout << (*loadedPets.at(currentSlot)).getSummary() << endl;
+                cout << endl;
 
+                system("PAUSE");
                 option = 0;
                 break;
             case 2:
                 cout << endl << "Please enter a name: " << endl;
                 name = getStringInput();
-                loadedPets.push_back(Nyorotchi(name));
+                loadedPets.push_back(new Nyorotchi(name));
                 currentSlot = loadedPets.size() - 1;
 
                 cout << endl << "New Tamagotchi created: " << endl;
-                cout << loadedPets.at(currentSlot).getSummary() << endl;
+                cout << (*loadedPets.at(currentSlot)).getSummary() << endl;
+                cout << endl;
 
+                system("PAUSE");
                 option = 0;
                 break;
             case 3:
                 cout << endl << "Please enter a name: " << endl;
                 name = getStringInput();
-                loadedPets.push_back(Maskutchi(name));
+                loadedPets.push_back(new Maskutchi(name));
                 currentSlot = loadedPets.size() - 1;
 
                 cout << endl << "New Tamagotchi created: " << endl;
-                cout << loadedPets.at(currentSlot).getSummary() << endl;
+                cout << (*loadedPets.at(currentSlot)).getSummary() << endl;
+                cout << endl;
 
+                system("PAUSE");
                 option = 0;
                 break;
             default:
@@ -187,14 +205,58 @@ void GameManager::newPet() {
 }
 
 void GameManager::interactPet() {
+    int option = -1;
+
+    while (option != 0) {
+        drawInteractPetMenu();
+        option = getIntegerInput(0, 5);
+        switch (option) {
+            case 0:
+                break;
+            case 1:
+                (*loadedPets.at(currentSlot)).sleep();
+                cout << endl;
+                system("PAUSE");
+                break;
+            case 2:
+                (*loadedPets.at(currentSlot)).play();
+                cout << endl;
+                system("PAUSE");
+                break;
+            case 3:
+                (*loadedPets.at(currentSlot)).feed();
+                cout << endl;
+                system("PAUSE");
+                break;
+            case 4:
+                save();
+                break;
+            case 5:
+                load();
+                break;
+
+        }
+    }
 
 }
 
 void GameManager::save() {
+    ofstream saveFile("save.txt", ios_base::trunc);
+    drawSaveMenu();
 
+    for (unsigned int i = 0; i < loadedPets.size(); i++) {
+        saveFile << (*loadedPets.at(i)).getSaveString() << endl;
+    }
+
+    cout << endl;
+    cout << "Save completed." << endl;
+    cout << endl;
+
+    system("PAUSE");
 }
 
 void GameManager::drawMenu(vector<string> text) {
+    system("cls");
     cout << endl;
     cout << "______________________________________________________________________________________" << endl;
     for (unsigned int i = 0; i < text.size(); i++ ) {
@@ -221,7 +283,7 @@ void GameManager::drawLoadMenu() {
         text.push_back("No pets found.");
     } else {
         for (unsigned int i = 0; i < loadedPets.size(); i++) {
-            text.push_back(to_string(i + 1) + ". " + loadedPets.at(i).getSummary());
+            text.push_back(to_string(i + 1) + ". " + (*loadedPets.at(i)).getSummary());
         }
     }
 
@@ -241,11 +303,26 @@ void GameManager::drawNewPetMenu() {
 }
 
 void GameManager::drawInteractPetMenu() {
+    vector<string> text;
+    text.push_back("0. Go Back");
+    text.push_back("What would you like to do with your Tamagatchi?");
+    text.push_back("");
+    text.push_back((*loadedPets.at(currentSlot)).getSummary());
+    text.push_back("");
+    text.push_back("1. Sleep");
+    text.push_back("2. Play");
+    text.push_back("3. Feed");
+    text.push_back("4. Save");
+    text.push_back("5. Load");
 
+    drawMenu(text);
 }
 
 void GameManager::drawSaveMenu() {
+    vector<string> text;
+    text.push_back("Saving files...");
 
+    drawMenu(text);
 }
 
 void GameManager::printInvalidInputError() {

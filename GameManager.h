@@ -11,10 +11,10 @@ using namespace std;
 class GameManager {
 private:
     int currentSlot;
-    vector<Pet> loadedPets;
+    vector<Pet*> loadedPets;
     
     void loadPets(); // loads pets into loadedPets
-    Pet parsePet(string text);
+    Pet* parsePet(string text);
 
     void load(); // presents user load menu
     void newPet();
@@ -33,6 +33,7 @@ private:
     void printInvalidInputError();
 public:
     GameManager();
+    ~GameManager();
     void start();
 
 };

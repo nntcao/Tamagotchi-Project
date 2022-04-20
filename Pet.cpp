@@ -422,18 +422,24 @@ Pet::Pet(string _name, string _type) {
 }
 
 string Pet::getSummary() {
-    return "Name: " + name + "; Trait: " + trait + "; Age: " + to_string(hoursAged) + " hours; Hunger: " + to_string(hunger) + "/100; Sleep: " + to_string(sleepiness) + "/100; Boredom: " + to_string(boredom) + "/100; Sadness: " + to_string(sadness) + "/100;";
+    return "Name: " + name + "; Type: " + type + "; Trait: " + trait + "; Age: " + to_string(hoursAged) + " hours; Hunger: " + to_string(hunger) + "/100; Sleep: " + to_string(sleepiness) + "/100; Boredom: " + to_string(boredom) + "/100; Sadness: " + to_string(sadness) + "/100;";
 }
 
 string Pet::getSaveString() {
     return name + " " + to_string(hoursAged) + " " + trait + " " + to_string(hunger) + " " + to_string(sleepiness) + " " + to_string(boredom) + " " + to_string(sadness) + " " + type;
 }
 
-void Pet::interaction(int deltaHunger, int deltaSleep, int deltaBoredom, int deltaSadness) {
+void Pet::changeStat(int deltaHunger, int deltaSleep, int deltaBoredom, int deltaSadness) {
     hunger = max(0, min(hunger + deltaHunger, 100));
     sleepiness = max(0, min(sleepiness + deltaSleep, 100));
     boredom = max(0, min(boredom + deltaBoredom, 100));
     sadness = max(0, min(sadness + deltaSadness, 100));
+
+}
+
+void Pet::interaction(int deltaHunger, int deltaSleep, int deltaBoredom, int deltaSadness) {
+    changeStat(deltaHunger, deltaSleep, deltaBoredom, deltaSadness);
+    nextHour();
 }
 
 void Pet::feed() {
@@ -449,7 +455,8 @@ void Pet::sleep() {
 }
 
 void Pet::nextHour() {
-    interaction(2, 2, 2, 2);
+    changeStat(2, 2, 2, 2);
+	hoursAged = hoursAged + 1;
 }
 
 void Pet::printWarning(string stat, int amount) {
