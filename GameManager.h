@@ -12,11 +12,11 @@ class GameManager {
 private:
     int currentSlot;
     vector<Pet> loadedPets;
+    
+    void loadPets(); // loads pets into loadedPets
+    Pet parsePet(string text);
 
-public:
-    GameManager();
-    void start();
-    void load();
+    void load(); // presents user load menu
     void newPet();
     void interactPet();
     void save();
@@ -27,6 +27,14 @@ public:
     void drawNewPetMenu();
     void drawInteractPetMenu();
     void drawSaveMenu();
+
+    int getIntegerInput(int min, int max);
+    string getStringInput();
+    void printInvalidInputError();
+public:
+    GameManager();
+    void start();
+
 };
 
 

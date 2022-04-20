@@ -6,8 +6,5 @@ int main() {
     GameManager game;
     game.start();
 
-    int t;
-    cin >> t;
-
     return 0;
 }

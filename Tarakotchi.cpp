@@ -2,7 +2,7 @@
 #include <string>
 
 const string Tarakotchi::defaultName = "Tarakotchi";
-const string Tarakotchi::description = "Tarakotchi has giant lips and thin legs but no arms, a small tuft of hair rendered as a mohawk in some artworks, pink cheeks, and a fat, bean-shaped body - in the original Japanese artwork, he had visible toes.";
+const string Tarakotchi::description = "Tarakotchi has thin legs but no arms, a small tuft of hair, and a bean-shaped body.";
 
 Tarakotchi::Tarakotchi() : Pet(defaultName, defaultName) {}
 

@@ -2,7 +2,7 @@
 #include <string>
 
 const string Maskutchi::defaultName = "Maskutchi";
-const string Maskutchi::description = "Maskutchi has a round, white, bean-shaped body with a pair of stubby violet ears on top, has two stick legs, and wears a violet mask.";
+const string Maskutchi::description = "Maskutchi has a bean-shaped body with a pair of violet ears on top, and wears a violet mask.";
 
 Maskutchi::Maskutchi() : Pet(defaultName, defaultName) {}
 

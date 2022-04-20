@@ -2,10 +2,12 @@
 #define PET
 
 #include <string>
+#include <vector>
 using namespace std;
 
 class Pet {
 private:
+    static const vector<string> possibleTraits;
     int hunger;
     int sleepiness;
     int boredom;
@@ -28,6 +30,8 @@ public:
     virtual void sleep();
     virtual void nextHour();
     void printWarnings();
+
+    void load(string _name, int _hoursAged, string _trait, int _hunger, int _sleepiness, int _boredom, int _sadness, string _type);
 };
 
 
